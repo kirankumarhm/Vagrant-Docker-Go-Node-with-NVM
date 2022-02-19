@@ -1,4 +1,4 @@
-# Vagrant + Docker + Go + Node with NVM
+# Vagrant + Docker + Go + Java + Node with NVM
 This Vagrantfile will setup a VM that has Docker + Java + Go + Node with NVM preinstalled and configured.
 
 
