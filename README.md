@@ -3,8 +3,8 @@ This Vagrantfile will setup a VM that has Docker + Java + Go + Node with NVM pre
 
 
 Ubuntu 18.04  
-Docker  stable
-Golang  - v 17
+Docker  stable  
+Golang  - v 17  
 NVM  
-Node  - 16.14.0
-Java - Open JDK 11
+Node  - 16.14.0  
+Java - Open JDK 11  
