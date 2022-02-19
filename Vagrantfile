@@ -72,29 +72,31 @@ Vagrant.configure("2") do |config|
   
   config.vm.provision "shell", inline: <<-SHELL
 	sudo echo "Asia/Kolkata" | sudo tee /etc/timezone
-	sudo apt-get install -y build-essential curl git libssl-dev man
-	sudo apt-get install resolvconf
+	sudo apt install -y build-essential curl git libssl-dev man
+	sudo apt install resolvconf
 	sudo echo "# Make edits to /etc/resolvconf/resolv.conf.d/head." >> /etc/resolvconf/resolv.conf.d/head
 	sudo echo "nameserver 8.8.4.4" >> /etc/resolvconf/resolv.conf.d/head
 	sudo echo "nameserver 8.8.8.8" >> /etc/resolvconf/resolv.conf.d/head
 	sudo service resolvconf restart
 	sudo echo "Installing docker and docker-compose"
-    sudo apt-get update
-    sudo apt-get install -y software-properties-common curl apt-transport-https ca-certificates 
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-    sudo apt-key fingerprint 0EBFCD88
+    	sudo apt update
+    	sudo apt install -y software-properties-common curl apt-transport-https ca-certificates 
+    	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    	sudo apt-key fingerprint 0EBFCD88
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    sudo apt-get update
-    sudo apt-get install -y "docker-ce=5:18.09.9~3-0~ubuntu-bionic"
+    	sudo apt update
+    	sudo apt install -y docker-ce
 	sudo docker info
 	sudo echo "Adding user to docker group"
-    sudo usermod -aG docker $SUDO_USER
+    	sudo usermod -aG docker $SUDO_USER
 	sudo echo "Installing docker-compose"
-	sudo curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
+	# sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
+	sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/bin/docker-compose
+	sudo apt install openjdk-11-jre-headless
 	sudo echo "Installing Go Lang"
-	sudo wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz
-	sudo tar -C /usr/local -xzf go1.13.3.linux-amd64.tar.gz
+	sudo wget https://go.dev/dl/go1.17.7.linux-amd64.tar.gz
+	sudo tar -C /usr/local -xzf go1.17.7.linux-amd64.tar.gz
 	sudo rm -f go1.13.3.linux-amd64.tar.gz
 	echo "export GOROOT=/usr/local/go" >> /home/vagrant/.profile
 	echo "export GOROOT=/usr/local/go" >> /home/vagrant/.bashrc
@@ -102,6 +104,10 @@ Vagrant.configure("2") do |config|
 	echo "export GOPATH=/vagrant/gocc" >> /home/vagrant/.bashrc
 	echo "export PATH=$PATH:/usr/local/go/bin" >> /home/vagrant/.profile
 	echo "export PATH=$PATH:/usr/local/go/bin" >> /home/vagrant/.bashrc
+	echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> /home/vagrant/.profile
+	echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> /home/vagrant/.bashrc
+	echo "export PATH=$PATH:$JAVA_HOME/bin" >> /home/vagrant/.profile
+	echo "export PATH=$PATH:$JAVA_HOME/bin" >> /home/vagrant/.bashrc
 
   SHELL
   
