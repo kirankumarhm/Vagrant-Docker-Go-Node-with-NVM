@@ -13,8 +13,8 @@ git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git check
 echo "source ~/.nvm/nvm.sh" >> ~/.profile
 source ~/.profile
 
-nvm install v12.18.3
-nvm alias default v12.18.3
+nvm install v16.14.0
+nvm alias default v16.14.0
 
 npm install -g browserify
 npm install -g eslint
